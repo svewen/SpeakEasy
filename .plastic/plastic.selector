@@ -1,0 +1,4 @@
+repository "SpeakEasy@sylr@cloud"
+  path "/"
+    br "/main"
+    co "/main"
