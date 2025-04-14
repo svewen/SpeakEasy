@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
+    public float rayDistance;
+
     private void Update()
     {
         // Check if player is on ground
@@ -39,8 +41,34 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("E Key Pressed");
+            Interact();
+        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void Interact()
+    {
+        RaycastHit hit;
+
+        // Cast a ray from this object forward
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+        {
+            if (hit.collider.CompareTag("NPC"))
+            {
+                Debug.Log("hit npc");
+            }
+        }
+        else
+        {
+            Debug.Log("Nothing detected in front.");
+        }
+
+        // show ray in scene view
+        Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red, 1f);
     }
 }
