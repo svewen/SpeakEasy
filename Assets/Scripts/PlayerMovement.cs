@@ -15,8 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
-    public float rayDistance;
-
     private void Update()
     {
         // Check if player is on ground
@@ -44,31 +42,31 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E Key Pressed");
-            Interact();
+            //Interact();
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void Interact()
-    {
-        RaycastHit hit;
+    //private void Interact()
+    //{
+    //    RaycastHit hit;
 
-        // Cast a ray from this object forward
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
-        {
-            if (hit.collider.CompareTag("NPC"))
-            {
-                Debug.Log("hit npc");
-            }
-        }
-        else
-        {
-            Debug.Log("Nothing detected in front.");
-        }
+    //    // Cast a ray from this object forward
+    //    if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+    //    {
+    //        if (hit.collider.CompareTag("NPC"))
+    //        {
+    //            Debug.Log("hit npc");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Nothing detected in front.");
+    //    }
 
-        // show ray in scene view
-        Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red, 1f);
-    }
+    //    // show ray in scene view
+    //    Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red, 1f);
+    //}
 }
