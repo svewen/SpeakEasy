@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartTutorial : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class StartTutorial : MonoBehaviour
     public GameObject interactHint;
     public TMP_Text tutorialText;    
     private bool inRange;
+    public bool waitForClick = false; // Flag to check if waiting for click
 
     public FreezePlayer freezePlayerScript;
 
@@ -28,15 +29,22 @@ public class StartTutorial : MonoBehaviour
                 ShowTutorial();
             }
         }
+
+        if (waitForClick && Input.GetMouseButtonDown(0))
+            SceneManager.LoadScene("DiagnosticTest");
     }
 
     public void ShowTutorial()
     {
         freezePlayerScript.Freeze(); // Freeze the player movement
+        interactHint.SetActive(false); // Hide the interact hint
         // Show the tutorial UI
         tutorialUI.SetActive(true);
         // Set the tutorial text
         tutorialText.text = "Welcome! Before I let you in, let's see how much you know!";
+
+        waitForClick = true; // Set the flag to true
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +54,6 @@ public class StartTutorial : MonoBehaviour
         {
             inRange = true;
             interactHint.SetActive(true); // Show the interact hint
-            
         }
     }
     private void OnTriggerExit(Collider other)
